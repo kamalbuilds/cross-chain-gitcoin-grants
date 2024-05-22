@@ -1,5 +1,6 @@
 import { Button } from "frames.js/next";
-import { frames } from "../frames/frames";
+import { frames } from "../../frames/frames";
+import { baseSepolia } from "viem/chains";
 
 const handleRequest = frames(async (ctx) => {
   return {
@@ -12,12 +13,15 @@ const handleRequest = frames(async (ctx) => {
           backgroundPosition: "center",
         }}
       >
-        Select your chain
+        Your bet has been placed successfully
       </div>
     ),
     buttons: [
-      <Button action='post' target={`${process.env.HOST_URL}/bridge`}>
-        Bridge
+      <Button
+        action='link'
+        target={`https://ccip-swap.vercel.app/trade?chainId=${baseSepolia.id}`}
+      >
+        Check more bets
       </Button>,
     ],
   };

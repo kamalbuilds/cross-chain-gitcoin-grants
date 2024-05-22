@@ -2,6 +2,10 @@ import { Button } from "frames.js/next";
 import { frames } from "../frames/frames";
 
 const handleRequest = frames(async (ctx) => {
+  const { searchParams } = new URL(ctx.url);
+  const id = searchParams.get("id");
+  const type = searchParams.get("type");
+
   return {
     image: (
       <div
@@ -12,14 +16,21 @@ const handleRequest = frames(async (ctx) => {
           backgroundPosition: "center",
         }}
       >
-        Select your chain
+        {type === "bet" ? "Approve USDC to Bet" : "Approve USDC to Bridge"}
       </div>
     ),
     buttons: [
-      <Button action='post' target={`${process.env.HOST_URL}/bridge`}>
-        Bridge
+      <Button
+        action='tx'
+        target={`${process.env.HOST_URL}/tx/approve`}
+        post_url={`${process.env.HOST_URL}/${
+          type === "bet" ? `bet/usdc?id=${id}` : "bridge"
+        }`}
+      >
+        Approve USDC
       </Button>,
     ],
+    textInput: "Enter amount in USDC",
   };
 });
 

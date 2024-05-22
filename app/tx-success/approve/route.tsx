@@ -1,5 +1,5 @@
 import { Button } from "frames.js/next";
-import { frames } from "../frames/frames";
+import { frames } from "../../frames/frames";
 
 const handleRequest = frames(async (ctx) => {
   return {
@@ -12,14 +12,19 @@ const handleRequest = frames(async (ctx) => {
           backgroundPosition: "center",
         }}
       >
-        Select your chain
+        USDC is approved successfully
       </div>
     ),
     buttons: [
-      <Button action='post' target={`${process.env.HOST_URL}/bridge`}>
-        Bridge
+      <Button
+        action='tx'
+        target={`${process.env.HOST_URL}/tx/bridge`}
+        post_url={`${process.env.HOST_URL}/tx-success/bridge`}
+      >
+        Bridge USDC
       </Button>,
     ],
+    textInput: "Enter amount in USDC",
   };
 });
 
